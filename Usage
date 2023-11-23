@@ -1,0 +1,9 @@
+
+Add questions to the Question Store in app.js:
+const questionStore = new QuestionStore();
+questionStore.addQuestion(new Question("What is the speed of light", "Physics", "Waves", "Easy", 5));
+// Add more questions as needed...
+Customize the difficulty distribution in app.js:
+const difficultyDistribution = { Easy: 20, Medium: 50, Hard: 30 };
+Run the application:
+node app.js
