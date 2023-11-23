@@ -1,0 +1,73 @@
+class Question {
+  constructor(question, subject, topic, difficulty, marks) {
+    this.question = question;
+    this.subject = subject;
+    this.topic = topic;
+    this.difficulty = difficulty;
+    this.marks = marks;
+  }
+}
+
+class QuestionStore {
+  constructor() {
+    this.questions = [];
+  }
+
+  addQuestion(question) {
+    this.questions.push(question);
+  }
+
+  getQuestionsByDifficulty(difficulty) {
+    return this.questions.filter((q) => q.difficulty === difficulty);
+  }
+}
+
+class QuestionPaperGenerator {
+  constructor(questionStore) {
+    this.questionStore = questionStore;
+  }
+
+  generateQuestionPaper(totalMarks, difficultyDistribution) {
+    const questionPaper = [];
+    const difficulties = Object.keys(difficultyDistribution);
+
+    difficulties.forEach((difficulty) => {
+      const percentage = difficultyDistribution[difficulty];
+      const marksForDifficulty = (percentage / 100) * totalMarks;
+      const questions = this.questionStore.getQuestionsByDifficulty(difficulty);
+
+      if (questions.length === 0) {
+        console.log(`Warning: No questions found for difficulty ${difficulty}.`);
+        return;
+      }
+
+      let accumulatedMarks = 0;
+      while (accumulatedMarks < marksForDifficulty) {
+        const randomIndex = Math.floor(Math.random() * questions.length);
+        const selectedQuestion = questions[randomIndex];
+
+        if (accumulatedMarks + selectedQuestion.marks <= marksForDifficulty) {
+          questionPaper.push(selectedQuestion);
+          accumulatedMarks += selectedQuestion.marks;
+        }
+      }
+    });
+
+    return questionPaper;
+  }
+}
+
+// Example usage:
+const questionStore = new QuestionStore();
+questionStore.addQuestion(new Question("What is the speed of light", "Physics", "Waves", "Easy", 5));
+// Add more questions as needed...
+
+const questionPaperGenerator = new QuestionPaperGenerator(questionStore);
+
+const totalMarks = 100;
+const difficultyDistribution = { Easy: 20, Medium: 50, Hard: 30 };
+
+const generatedQuestionPaper = questionPaperGenerator.generateQuestionPaper(totalMarks, difficultyDistribution);
+
+console.log("Generated Question Paper:");
+console.log(generatedQuestionPaper);
