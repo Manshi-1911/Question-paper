@@ -1,0 +1,19 @@
+The application is designed to be open for extension. You can easily add more attributes to questions, additional distribution criteria, or integrate with a database for scalability.
+Adding More Attributes to Questions
+Edit the Question class in app.js to add new attributes:
+class Question {
+  constructor(question, subject, topic, difficulty, marks, newAttribute) {
+    // ... (unchanged)
+    this.newAttribute = newAttribute;
+  }
+}
+Additional Distribution Criteria
+Modify the QuestionPaperGenerator class in app.js to handle additional distribution criteria:
+class QuestionPaperGenerator {
+  // ... (unchanged)
+  generateQuestionPaper(totalMarks, difficultyDistribution, newDistributionCriteria) {
+    // ... (update the generation logic)
+  }
+}
+Database Integration
+Consider integrating a database to store and retrieve questions for better scalability. Update the QuestionStore class or introduce a database layer as needed.
