@@ -1,0 +1,6 @@
+Ensure you have Node.js installed on your machine.
+Clone this repository or download the code.
+git clone <repository-url>
+cd question-paper-generator
+Install dependencies.
+npm install
